@@ -140,8 +140,6 @@
 import Hero from "@/components/Hero.vue";
 import {fbase} from "../firebase";
 
-
-
 export default {
   name: "admin",
   components: {

@@ -107,6 +107,7 @@ export default {
                             console.log(error);
                     });
       },
+      
   	register(){
 	fbase.auth().createUserWithEmailAndPassword(this.email, this.password)
 	.then((user) => {
