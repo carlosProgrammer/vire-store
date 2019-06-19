@@ -7,26 +7,41 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <router-link class="sidebar-brand d-flex align-items-center justify-content-center" to="/admin">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Vire-Admin <sup>1</sup></div>
-      </a>
+      </router-link>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+      <li class="nav-item">
+        <router-link class="nav-link"  to="/admin/dashboard">
+          <i class="fa fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </router-link>
+      </li>
+
+      <li class="nav-item">
+        <router-link class="nav-link"  to="/admin/products">
+          <i class="fa fa-chart-line"></i>
+          <span>Products</span>
+        </router-link>
+      </li>
+
+      <li class="nav-item">
+        <router-link class="nav-link"  to="/admin/orders">
+          <i class="fa fa-shopping-cart"></i>
+          <span>Orders</span>
+        </router-link>
       </li>
 
       
 
-      <!-- Divider -->
+      <!-- Divider -->  
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -94,27 +109,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-           
-
-          <div class="row">
-
-            
-          <div class="row">
-
-            
-
-            </div>
-        </div>
-          </div>
+         <router-View />
 
         </div>
         <!-- /.container-fluid -->
