@@ -94,7 +94,7 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="#" @click="logout()">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -138,7 +138,7 @@
 <script>
 // @ is an alias to /src
 import Hero from "@/components/Hero.vue";
-
+import {fbase} from "../firebase";
 
 
 
@@ -146,6 +146,17 @@ export default {
   name: "admin",
   components: {
     Hero
+  },
+  methods: {
+          logout(){
+          fbase.auth().signOut()
+          .then(() => {
+              this.$router.replace('/');
+          })
+          .catch((err) =>{
+              console.log(err);
+          });
+      }
   }
 };
 
