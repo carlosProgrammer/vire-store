@@ -90,11 +90,11 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="product.tag" class="form-control">
+                  <input type="text" @keyup.188="addTag()" placeholder="Product tags" v-model="tag" class="form-control">
 
                   <div  class="d-flex">
                     <p v-for="tag in product.tags">
-                      <span class="p-1">{{tag}}</span>
+                      <span class="badge badge-pill badge-light">{{tag}}</span>
                     </p>
 
                   </div>
@@ -157,12 +157,13 @@
           name:null,
           description:null,
           price:null,
-          tag:null,
+          tags:[],
           image:null
 
         },
         activeItem:null,
-        modal:null
+        modal:null,
+        tag:null
 
       }
     },
@@ -174,6 +175,11 @@
     },
 
     methods:{
+
+      addTag(){
+        this.product.tags.push(this.tag);
+        this.tag="";
+      },
 
       reset(){
 
