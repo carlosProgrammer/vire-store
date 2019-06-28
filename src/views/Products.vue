@@ -58,7 +58,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editLabel" v-if="modal == 'new'">Create Product</h5>
@@ -101,7 +101,7 @@
                 </div> 
 
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                       <label for="product_image">Product Images</label>
                       <input type="file" @change="uploadImage" class="form-control">
                     </div>
@@ -113,7 +113,7 @@
                               <span class="delete-img" @click="deleteImage(image,index)">X</span>
                           </div>
                       </div>
-                    </div> -->
+                    </div>
 
                   </div> 
                 </div>
@@ -175,6 +175,23 @@
     },
 
     methods:{
+
+      uploadImage(e){
+
+        let file = e.target.files[0];
+
+        var storageRef = fbase.storage().ref('products/' + file.name);
+
+        let uploadTask = storageRef.put(file);
+
+        uploadTask.on('state_changed',(snapshot) => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.product.image = downloadURL;
+            console.log('File available at:', downloadURL);
+          });
+        });
+          
+      },
 
       addTag(){
         this.product.tags.push(this.tag);
