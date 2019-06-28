@@ -57,39 +57,38 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editLabel" v-if="modal == 'new'">Create Product</h5>
-            <h5 class="modal-title" id="editLabel" v-if="modal == 'edit'">Edit Product</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
+      <div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editLabel">Edit Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
 
-            <div class="row">
-              <!-- main product -->
-              <div class="col-md-8">
-                <div class="form-group">
-                  <input type="text" placeholder="Product Name" v-model="product.name" class="form-control">
-                </div>
+                <div class="row">
+                  <!-- main product -->
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <input type="text" placeholder="Product Name" v-model="product.name" class="form-control">
+                    </div>
 
-                <div class="form-group">
-                  <vue-editor v-model="product.description"></vue-editor>
-                  
-                </div>
-              </div>
-              <!-- product sidebar -->
-              <div class="col-md-4">
+                    <div class="form-group">
+                      <vue-editor v-model="product.description"></vue-editor>
+                    </div>
+                  </div>
+                  <!-- product sidebar -->
+                  <div class="col-md-4">
+                    <h4 class="display-6">Product Details</h4>
+                    <hr>
 
+                    <div class="form-group">
+                      <input type="text" placeholder="Product price" v-model="product.price" class="form-control">
+                    </div>
 
-                <div class="form-group">
-                  <input type="text" placeholder="Product price" v-model="product.price" class="form-control">
-                </div>
-
-                <div class="form-group">
+                    <div class="form-group">
                       <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="tag" class="form-control">
                       
                       <div  class="d-flex">
@@ -215,11 +214,19 @@
         this.tag="";
       },
 
-      reset(){
+          reset(){
+      this.product = {
+          name:null,
+          description:null,
+          price:null,
+          tags:[],
+          images:[]
+      }
+    },
 
-      },
       addNew(){
         this.modal = 'new';
+        this.reset();
         $('#product').modal('show');
 
       },
