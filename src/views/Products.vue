@@ -27,7 +27,8 @@
               <tr>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Modify</th>
+                
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -40,6 +41,7 @@
                 <td>
                   {{product.price}}
                 </td>
+            
                 <td>
                   <button class="btn btn-primary" @click="editProduct(product)">Edit</button>&nbsp;
                   <button class="btn btn-danger" @click="deleteProduct(product)">Delete</button>
@@ -75,7 +77,8 @@
                 </div>
 
                 <div class="form-group">
-                  <textarea class="form-control" placeholder="Product Description" v-model="product.description" rows="5"></textarea>
+                  <vue-editor v-model="product.description"></vue-editor>
+                  
                 </div>
               </div>
               <!-- product sidebar -->
@@ -122,7 +125,7 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button @click="addProduct()" type="button" class="btn btn-success" v-if="modal == 'new'">Save changes</button>
-                <button @click="updateProduct" type="button" class="btn btn-primary" v-if="modal == 'edit'">Update Product</button>
+                <button @click="updateProduct()" type="button" class="btn btn-primary" v-if="modal == 'edit'">Update Product</button>
                 
               </div>
             </div>
@@ -132,7 +135,7 @@
     </template>
 
     <script>
-
+    import {VueEditor} from "vue2-editor";
     import {fbase, fstore} from '../firebase';
 
     export default {
@@ -140,6 +143,9 @@
      name: "Products",
      props: {
       msg: String
+    },
+    components: {
+      VueEditor
     },
 
     data(){
