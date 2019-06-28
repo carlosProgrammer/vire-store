@@ -90,15 +90,15 @@
                 </div>
 
                 <div class="form-group">
-                  <input type="text" @keyup.188="addTag()" placeholder="Product tags" v-model="tag" class="form-control">
+                      <input type="text" @keyup.188="addTag" placeholder="Product tags" v-model="tag" class="form-control">
+                      
+                      <div  class="d-flex">
+                        <p v-for="tag in product.tags">
+                            <span class="p-1">{{tag}}</span>
+                        </p>
 
-                  <div  class="d-flex">
-                    <p v-for="tag in product.tags">
-                      <span class="badge badge-pill badge-light">{{tag}}</span>
-                    </p>
-
-                  </div>
-                </div> 
+                      </div>
+                    </div>
 
 
                     <div class="form-group">
@@ -115,13 +115,13 @@
                       </div>
                     </div>
 
-                  </div> 
+                  </div>
                 </div>
 
 
 
 
-              </div>
+</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button @click="addProduct()" type="button" class="btn btn-success" v-if="modal == 'new'">Save changes</button>
@@ -158,7 +158,7 @@
           description:null,
           price:null,
           tags:[],
-          image:null
+          images:[]
 
         },
         activeItem:null,
@@ -175,23 +175,40 @@
     },
 
     methods:{
+          deleteImage(img,index){
+      let image = fbase.storage().refFromURL(img);
+      this.product.images.splice(index,1);
+      image.delete().then(function() {
+        console.log('image deleted');
+      }).catch(function(error) {
+        // Uh-oh, an error occurred!
+        console.log('an error occurred');
+      });
+    },
 
-      uploadImage(e){
-
-        let file = e.target.files[0];
-
-        var storageRef = fbase.storage().ref('products/' + file.name);
-
-        let uploadTask = storageRef.put(file);
-
-        uploadTask.on('state_changed',(snapshot) => {
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            this.product.image = downloadURL;
-            console.log('File available at:', downloadURL);
+       uploadImage(e){
+      if(e.target.files[0]){
+        
+          let file = e.target.files[0];
+    
+          var storageRef = fbase.storage().ref('products/'+ Math.random() + '_'  + file.name);
+    
+          let uploadTask  = storageRef.put(file);
+    
+          uploadTask.on('state_changed', (snapshot) => {
+            
+          }, (error) => {
+            // Handle unsuccessful uploads
+          }, () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              this.product.images.push(downloadURL);
+            });
           });
-        });
-          
-      },
+      }
+    },
 
       addTag(){
         this.product.tags.push(this.tag);
